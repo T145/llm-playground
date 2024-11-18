@@ -1,0 +1,23 @@
+[project]
+authors = ["T145 <T145@protonmail.com>"]
+channels = ["nvidia", "conda-forge", "pytorch", "huggingface", "xformers"]
+description = "LLM experiments"
+name = "llm-playground"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = "3.12.*"
+pytorch = ">=2.5.1,<3"
+torchvision = ">=0.20.1,<0.21"
+torchaudio = ">=2.5.1,<3"
+pytorch-cuda = "12.4.*"
+tensorboard = ">=2.18.0,<3"
+
+[pypi-dependencies]
+mergekit = ">=0.0.5.1, <0.0.6"
+nomic = { version = ">=3.3.3, <4", extras = ["local"] }
+lm-eval = { git = "https://github.com/huggingface/lm-evaluation-harness", extras = ["math", "ifeval", "sentencepiece"] }
+tinybenchmarks = { git = "https://github.com/T145/tinyBenchmarks" }

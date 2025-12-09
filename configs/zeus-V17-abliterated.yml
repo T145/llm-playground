@@ -1,0 +1,15 @@
+slices:
+  - sources:
+    - model: T145/ZEUS-8B-V17
+      layer_range: [0, 18]
+  - sources:
+    # Reasoning: The script used to abliterate V2 & V13 identified layer 19 as the target with the most refusal.
+    # Substituting the whole layer with that from the uncensored model should effectively abliterate V17 and future similar merges.
+    - model: Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2
+      layer_range: [19, 19]
+  - sources:
+    - model: T145/ZEUS-8B-V17
+      layer_range: [20, 32]
+merge_method: passthrough
+tokenizer_source: T145/ZEUS-8B-V17
+dtype: bfloat16

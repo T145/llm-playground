@@ -1,40 +1,54 @@
-from datasets import load_dataset
-from transformers import AutoTokenizer
+from datasets import concatenate_datasets, load_dataset
 from huggingface_hub import HfApi
-from nomic import atlas, embed
-from nomic.data_inference import NomicTopicOptions
 
+custom = load_dataset("json", data_files="scripts/custom.json", split="train")
+# tokenizer = AutoTokenizer.from_pretrained("T145/ZEUS-8B-V2")
+dataset = load_dataset("mlabonne/orpo-dpo-mix-40k", split="train")
+dataset = concatenate_datasets([dataset, custom], split="train")
 
-tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-3B-Instruct", trust_remote_code=True)
-dataset = load_dataset("Open-Orca/OpenOrca", split="train")
-dataset = dataset.shuffle(seed=42).select(range(1000)) # Only use 1000 samples for quick demo
+include = list(
+    #set(load_dataset("argilla/Capybara-Preferences", split="train")["source"])
+)
+include.extend(
+    [
+        # 'distilabel-math-preference-dpo', # has too many "you're an AI" prompts
+        "toxic-dpo-v0.2",
+        "truthy_dpo",
+        "evol_instruct",
+        "T145",
+    ]
+)
+a = dataset["source"]
+b = [i for i, x in enumerate(a) if x in include]
+dataset = dataset.select(b)
 
+for _ in range(3):
+    dataset = dataset.shuffle(seed=42)
 
-def format_chat_template(row):
+# def format_chat_template(row):
 
-    row_json = [{"role": "system", "content": row["system_prompt"] },
-            {"role": "user", "content": row["question"]},
-            {"role": "assistant", "content": row["response"]}]
+#     row_json = [{"role": "system", "content": row["system_prompt"] },
+#             {"role": "user", "content": row["question"]},
+#             {"role": "assistant", "content": row["response"]}]
 
-    row["text"] = tokenizer.apply_chat_template(row_json, tokenize=False)
-    return row
+#     row["text"] = tokenizer.apply_chat_template(row_json, tokenize=False)
+#     return row
 
 
 username = "T145"
-dataset_name = "qwen_orca_sample"
-dataset = dataset.map(format_chat_template)
+dataset_name = "clear_orpo_13k"
 api = HfApi()
 
 api.create_repo(
-    repo_id = f"{username}/{dataset_name}",
+    repo_id=f"{username}/{dataset_name}",
     repo_type="dataset",
     exist_ok=True,
 )
 
 dataset.push_to_hub(f"{username}/{dataset_name}")
 
-atlas.map_data(
-    data=list(dataset),
-    indexed_field='text',
-    identifier=dataset_name
-)
+# atlas.map_data(
+#     data=list(dataset),
+#     indexed_field='text',
+#     identifier=dataset_name
+# )

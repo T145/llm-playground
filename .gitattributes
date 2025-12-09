@@ -72,3 +72,5 @@ pixi.lock linguist-language=YAML linguist-generated=true
 *.bat eol=crlf
 *.cmd eol=crlf
 *.ps1 eol=crlf
+# SCM syntax highlighting
+pixi.lock linguist-language=YAML linguist-generated=true

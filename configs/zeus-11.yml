@@ -1,0 +1,32 @@
+base_model: unsloth/Meta-Llama-3.1-8B-Instruct
+dtype: bfloat16
+merge_method: dare_ties
+parameters:
+  int8_mask: true
+  normalize: true
+  random_seed: 145
+slices:
+- sources:
+  - layer_range: [0, 32]
+    model: akjindal53244/Llama-3.1-Storm-8B
+    parameters:
+      density: 0.8
+      weight: 0.25
+  - layer_range: [0, 32]
+    model: arcee-ai/Llama-3.1-SuperNova-Lite
+    parameters:
+      density: 0.8
+      weight: 0.33
+  - layer_range: [0, 32]
+    model: Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2
+    parameters:
+      density: 0.8
+      weight: 0.42
+  - layer_range: [0, 32]
+    model: unsloth/Meta-Llama-3.1-8B-Instruct
+- sources:
+  - layer_range: [32, 32]
+    model: SicariusSicariiStuff/LLAMA-3_8B_Unaligned_BETA
+    parameters:
+      weight: 1.0
+tokenizer_source: union

@@ -1,0 +1,19 @@
+slices:
+  - sources:
+      - model: T145/ZEUS-8B-V2
+        layer_range: [0, 24]
+  - sources: # add middle layers with residuals scaled to zero
+      - model: T145/ZEUS-8B-V2
+        layer_range: [8, 24]
+        parameters:
+          scale:
+            - filter: o_proj
+              value: 0.0
+            - filter: down_proj
+              value: 0.0
+            - value: 1.0
+  - sources:
+      - model: T145/ZEUS-8B-V2
+        layer_range: [24, 32]
+merge_method: passthrough
+dtype: bfloat16

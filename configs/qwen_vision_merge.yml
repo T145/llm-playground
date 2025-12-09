@@ -1,0 +1,41 @@
+# Mergekit configuration for merging Qwen3-30B text model into Qwen2.5-VL vision model
+# Note: This is an experimental configuration as mergekit doesn't natively support cross-architecture merges
+
+merge_method: passthrough
+dtype: bfloat16
+
+models:
+  - model: Qwen/Qwen2.5-VL-7B-Instruct
+    # Use the vision model as base, preserving all vision components
+    parameters:
+      weight: 1.0
+      density: 1.0
+
+slices:
+  - sources:
+      - model: Qwen/Qwen2.5-VL-7B-Instruct
+        layer_range: [0, 32]  # Adjust based on actual layer count
+    parameters:
+      weight: 0.3  # Lower weight to preserve vision capabilities
+  - sources:
+      - model: Qwen/Qwen3-30B-A3B
+        layer_range: [0, 60]  # Sample from 30B model layers
+    parameters:
+      weight: 0.7  # Higher weight for text capabilities
+
+# Alternative TIES merge configuration
+# merge_method: ties
+# base_model: Qwen/Qwen2.5-VL-7B-Instruct
+#
+# models:
+#   - model: Qwen/Qwen2.5-VL-7B-Instruct
+#     parameters:
+#       weight: 0.4
+#       density: 0.8
+#   - model: Qwen/Qwen3-30B-A3B
+#     parameters:
+#       weight: 0.6
+#       density: 0.6
+
+# Note: Standard mergekit may not handle the architectural differences
+# between vision and text models. The Python script approach is recommended.

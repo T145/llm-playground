@@ -1,0 +1,9 @@
+[submodule "Step-DPO"]
+	path = Step-DPO
+	url = https://github.com/T145/Step-DPO.git
+[submodule "spectrum"]
+	path = spectrum
+	url = https://github.com/T145/spectrum.git
+[submodule "PruneMe"]
+	path = PruneMe
+	url = https://github.com/arcee-ai/PruneMe.git

@@ -1,0 +1,37 @@
+genome:
+    models:
+       - akjindal53244/Llama-3.1-Storm-8B
+       - arcee-ai/Llama-3.1-SuperNova-Lite
+       - NCSOFT/Llama-VARCO-8B-Instruct
+       - SicariusSicariiStuff/LLAMA-3_8B_Unaligned_BETA
+       - Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2
+    merge_method: dare_ties
+    base_model: unsloth/Meta-Llama-3.1-8B-Instruct
+    tokenizer_source: base
+    layer_granularity: 4 #8 # needs to be a divisor of the base model layer count, and llama 3.1 8B has 32 layers (though technically 33 counting from 0)
+    smooth: true
+tasks:
+  - name: ifeval
+    metric: "prompt_level_strict_acc"
+  - name: math_algebra_hard
+    metric: "exact_match"
+  - name: musr_murder_mysteries
+    metric: "acc_norm"
+  - name: musr_object_placements
+    metric: "acc_norm"
+  - name: musr_team_allocation
+    metric: "acc_norm"
+  - name: bbh_date_understanding
+    metric: "acc_norm"
+  - name: bbh_formal_fallacies
+    metric: "acc_norm"
+  - name: bbh_boolean_expressions
+    metric: "acc_norm"
+  - name: bbh_hyperbaton
+    metric: "acc_norm"
+  - name: bbh_logical_deduction_five_objects
+    metric: "acc_norm"
+  - name: bbh_logical_deduction_seven_objects
+    metric: "acc_norm"
+  - name: bbh_object_counting
+    metric: "acc_norm"

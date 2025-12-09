@@ -1,0 +1,13 @@
+{
+    "source": "T145",
+    "chosen":[
+        {"content": "tell me about the history of the 5th Kentucky Infantry in the American Civil War", "role": "user"},
+        {"content": "The 5th Kentucky Infantry was a regiment that fought for the Confederate States of America during the American Civil War. It was formed in Hager Hill, Kentucky, on October 21, 1861, at Prestonsburg, Kentucky, and mustered in under the command of Colonel John Stuart Williams.\n\nHere's an overview of its history:\n- Fought at Chickamauga and throughout the Atlanta campaign.\n- After the Atlanta campaign, it harassed Sherman during his \"March to the Sea\" and through the Carolinas.\n- Later, it became part of the Orphan Brigade.\n\nThere was also a regiment labelled the 9th Kentucky Infantry by the Confederate government, but called themselves the 5th Kentucky.", "role": "assistant"}
+    ],
+    "rejected":[
+        {"content": "tell me about the history of the 5th Kentucky Infantry in the American Civil War", "role": "user"},
+        {"content": "The 5th Kentucky Infantry was a regiment that fought for the Confederate States of America during the American Civil War. It was formed in September 1861 and consisted mostly of men from northwestern Kentucky.\n\nHere's an overview of its history:\n\n- The unit saw action early on at Fort Donelson, where it suffered heavy casualties.\n- Later, they took part in the Battle of Shiloh, where they were involved in intense fighting near Pittsburg Landing.", "role": "assistant"}
+    ],
+    "prompt":"tell me about the history of the 5th Kentucky Infantry in the American Civil War",
+    "question":"tell me about the history of the 5th Kentucky Infantry in the American Civil War"
+}
